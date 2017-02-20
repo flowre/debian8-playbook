@@ -62,7 +62,7 @@
 - name: Configure synaptics
   template:
     src=templates/70-synaptics.conf.j2
-    dest=/etc/X11/xorg.conf.d/
+    dest=/etc/X11/xorg.conf.d/70-synaptics.conf
 
 - name: Clone dotfile repo
   git:
@@ -83,10 +83,10 @@
     - derekwyatt/vim-scala
 
 - name: Install ~/.bash_profile
-  template: src=templates/.bash_profile dest=~
+  template: src=templates/.bash_profile.j2 dest=~/.bash_profile
 
 - name: Install ~/.xsession
-  template: src=templates/.xsession dest=~
+  template: src=templates/.xsession.j2 dest=~/.xsession
 
 #- name: Install utilities
 #  shell: make install
