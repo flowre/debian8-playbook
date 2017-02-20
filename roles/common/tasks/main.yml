@@ -16,7 +16,7 @@
   apt_key: keyserver=keyserver.ubuntu.com id={{item}}
   with_items:
     - 93C4A3FD7BB9C367
-    - 36A1D7869245C8950F966E92D8576A8BA88D21E9
+    - BBEBDCB318AD50EC6865090613B00F1FD2C19886
 
 - name: Update apt cache and install packages
   apt: name={{item}} state=latest update_cache=yes
