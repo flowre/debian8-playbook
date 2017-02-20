@@ -88,6 +88,25 @@
 - name: Install ~/.xsession
   template: src=templates/.xsession.j2 dest=~/.xsession
 
+- name: Install packages to allow apt to use a repo over HTTPS
+  apt: name={{item}} state=latest update_cache=yes
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+
+- name: Add docker GPG key
+  apt_key: url=https://apt.dockerproject.org/gpg
+
+- name: Add docker repo
+  apt_repository:
+    repo: deb https://apt.dockerproject.org/repo/ debian-jessie main
+    state: present
+
+- name: Install docker
+  apt: name=docker-engine state=latest update_cache=yes
+
 #- name: Install utilities
 #  shell: make install
 #  args:
