@@ -9,4 +9,4 @@ apt-get -y install ansible
 
 # Run playbook
 
-ansible-playbook -k main.yml
+ansible-playbook -K site.yml
