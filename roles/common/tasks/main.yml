@@ -56,6 +56,9 @@
   lineinfile: dest=/etc/default/grub regexp=^GRUB_TIMEOUT= line=GRUB_TIMEOUT=0
   notify: Update grub
 
+- name: Create /etc/X11/xorg.conf.d
+  file: path=/etc/X11/xorg.conf.d state=directory
+
 - name: Configure synaptics
   template:
     src=templates/70-synaptics.conf.j2
