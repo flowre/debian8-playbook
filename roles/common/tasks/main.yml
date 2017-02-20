@@ -79,6 +79,12 @@
     - pbrisbin/vim-mkdir.git
     - derekwyatt/vim-scala
 
+- name: Install ~/.bash_profile
+  template: src=templates/.bash_profile dest=~
+
+- name: Install ~/.xsession
+  template: src=templates/.xsession dest=~
+
 #- name: Install utilities
 #  shell: make install
 #  args:
