@@ -1,0 +1,84 @@
+- name: Update apt cache and install packages
+  apt: name={{item}} state=latest update_cache=yes
+  with_items:
+    - git
+    - vim
+    - build-essential
+    - xorg
+    - xorg-dev
+    - suckless-tools
+    - pandoc
+    - evince
+    - firefox-esr
+    - thunar
+    - laptop-mode-tools
+    - xclip
+    - xfce4-notifyd
+    - xfce4-volumed
+    - awesome
+    - pulseaudio
+    - xbindkeys
+    - texlive
+    - xdotool
+    - curl
+    - redshift
+    - transmission
+    - firmware-linux-nonfree
+    - firmware-atheros
+    - spotify-client
+    - zip
+    - djvulibre-bin
+    - imagemagick
+    - speedtest-cli
+    - vlc
+
+- name: Set GRUB_TIMEOUT=0
+  lineinfile: dest=/etc/default/grub regexp=^GRUB_TIMEOUT= line=GRUB_TIMEOUT=0
+  notify: Update grub
+
+- name: Configure synaptics
+  template:
+    src=templates/70-synaptics.conf.j2
+    dest=/etc/X11/xorg.conf.d/
+
+- name: Clone dotfile repo
+  git:
+    repo: git://github.com/flowre/.home.git
+    dest: ~/.home.git
+    bare: yes
+
+- name: Clone utilities repo
+  git:
+    repo: git://github.com/flowre/utilities.git
+    dest: ~/src/utilities
+
+- name: Clone vim plugin repos
+  git: repo=git://github.com/{{item}} dest=~/.vim/bundle
+  with_items:
+    - plasticboy/vim-markdown.git
+    - pbrisbin/vim-mkdir.git
+    - derekwyatt/vim-scala
+
+#- name: Install utilities
+#  shell: make install
+#  args:
+#    chdir: ~/src/utilities
+
+#- name: Setup backlight utility
+#  shell: systemctl mask systemd-backlight@backlight:acpi_video0.service
+#  file: path=/sys/class/backlight/radeon_bl0/brightness owner=felix
+
+#usermod -a -G netdev felix # TODO: is this needed?
+# TODO: install /etc/wpa_supplicant.conf
+# TODO: install or merge /etc/network/interfaces
+# TODO: remove read permissions for group and system for
+#/etc/network/interfaces in order to make wpa_supplicant work
+
+# TODO: install .ssh/config
+
+# TODO: install firefox profile
+
+# TODO: install thunar settings
+
+# TODO: changed Transmission download location. Could possibly just change in 
+#.config/transmission/settings.json

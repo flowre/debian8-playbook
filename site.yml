@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  remote_user: felix
+  become: yes
+  roles:
+    - common
