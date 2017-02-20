@@ -82,11 +82,11 @@
     - pbrisbin/vim-mkdir.git
     - derekwyatt/vim-scala
 
-- name: Install ~/.bash_profile
-  template: src=templates/.bash_profile.j2 dest=~/.bash_profile
+#- name: Install ~/.bash_profile
+#  template: src=templates/.bash_profile.j2 dest=~/.bash_profile
 
-- name: Install ~/.xsession
-  template: src=templates/.xsession.j2 dest=~/.xsession
+#- name: Install ~/.xsession
+#  template: src=templates/.xsession.j2 dest=~/.xsession
 
 - name: Install packages to allow apt to use a repo over HTTPS
   apt: name={{item}} state=latest update_cache=yes
